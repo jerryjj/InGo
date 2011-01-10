@@ -1,0 +1,1 @@
+from cherrypy import request, thread_data

@@ -1,0 +1,5 @@
+error_controller: ingo.web.controllers.ErrorController
+preferred_extension: cherry
+
+templating:
+    enabled: False

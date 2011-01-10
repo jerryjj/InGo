@@ -1,0 +1,48 @@
+root_path: ''
+
+multilang:
+    enabled: False
+    default: en
+    map:
+        en:
+            path: '/en'
+            lang: en
+        fi:
+            path: '/fi'
+            lang: fi
+
+global:
+    server.socket_host: 0.0.0.0
+    server.socket_port: 8080
+    server.thread_pool: 10
+    server.environment: development
+    
+    engine.autoreload_on: True
+            
+    log.screen: True
+    #log.error_file: cherry.error.log
+    #log.access_file = cherry.access.log
+    
+    tools.redirect.on: False
+    
+    tools.encode.on: True
+    tools.encode.encoding: utf-8
+    tools.decode.on: True
+
+    tools.trailing_slash.on: True
+
+route_mapper_minimization: True
+route_mapper_explicit: False
+
+append_default_routes: True
+
+mounts:
+    '/static':
+        tools.staticdir.on: True
+        tools.staticdir.dir: public
+    '/favicon.ico':
+        tools.staticfile.on: True
+        tools.staticfile.filename: public/favicon.ico
+    '/robots.txt':
+        tools.staticfile.on: True
+        tools.staticfile.filename: public/robots.txt
