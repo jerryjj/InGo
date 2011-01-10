@@ -1,0 +1,7 @@
+use_extension: cherry
+
+templating:
+    enabled: True
+    genshi_config:
+        auto_reload: True
+        search_paths: ['./templates']

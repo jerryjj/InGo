@@ -1,0 +1,14 @@
+multilang:
+    enabled: True
+    
+global:        
+    sessionFilter.on: True
+        
+    #engine.autoreload_on: False
+
+append_default_routes: False
+
+mounts:
+    '/static':
+        tools.staticdir.on: True
+        tools.staticdir.dir: static
