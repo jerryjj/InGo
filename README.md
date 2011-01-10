@@ -5,7 +5,7 @@ WARNING: Still under heavy development, this notification will be removed when t
 InGo will try to do it's best not to define how you should write your projects,
 but to provide a small and efficient core for multiple different needs.
 
-Main reason for building this project is to fasten my own development on all the
+Main reason for building this project is to speed up my own development on all the
 different projects I work on.
 
 ## Main points
