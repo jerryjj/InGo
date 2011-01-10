@@ -1,3 +1,4 @@
 *.tmproj
 dls/
 ingoenv/
+*/*.pyc
