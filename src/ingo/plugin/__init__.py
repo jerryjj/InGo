@@ -43,7 +43,7 @@ class Loader(object):
     
     def getByName(self, name):
         if not self._plugins.has_key(name):
-            raise ExtensionNotLoaded("Plugin %s has not been loaded" % name)
+            raise PluginNotLoaded("Plugin %s has not been loaded" % name)
         if not self._plugins[name].isActive():
             raise PluginNotActive("Plugin is %s not active" % name)
         return self._plugins[name]
