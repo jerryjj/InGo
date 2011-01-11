@@ -9,10 +9,26 @@ except ImportError:
 setup(
     name='inGo',
     version='0.1',
-    description='',
+    description='InGo Framework',
+    long_description=''
+    classifiers=[
+        #"Development Status :: 5 - Production/Stable",
+        #"Development Status :: 4 - Beta",
+        "Development Status :: 1 - Planning",
+        "Environment :: Web Environment",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: BSD Licens",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Topic :: Utilities",
+        "Topic :: Internet",
+        "Topic :: System :: Networking",
+        "Topic :: Software Development :: Libraries :: Application Frameworks",
+    ],
+    license="BSD"
     author='Jerry Jalava',
     author_email='jerry.jalava@infigo.fi',
-    url='http://infigo.fi',
+    url='http://ingo.infigo.fi',
     install_requires=[
         "Paste>=1.7.2", "PasteDeploy>=1.3.3", "PasteScript>=1.7.3",
         "Tempita>=0.2",
