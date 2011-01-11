@@ -1,10 +1,10 @@
-import ingo.web.application
+import ingo.web.project
 
 import logging
 log = logging.getLogger('ingo')
 
-class MyApp(ingo.web.application.Application):
-    """docstring for MyApp"""
+class MyProj(ingo.web.project.Project):
+    """docstring for MyProj"""
     
     routes = {
         '/': [
@@ -48,5 +48,5 @@ class MyApp(ingo.web.application.Application):
         #print self.map
 
 if __name__ == "__main__":
-    myapp = MyApp()
-    myapp.run()
+    project = MyProj()
+    project.run()

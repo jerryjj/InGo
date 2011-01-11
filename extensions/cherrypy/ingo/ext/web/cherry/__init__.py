@@ -23,7 +23,6 @@ def list_features():
 
 def getDefaultConfigPath():
     return Path(__file__).absolute().ancestor(4)
-    return
 
 class InGoMultilangApp(cherrypy.Application):
     def __init__(self, lang, localedir, script_name="", app_config=None):
@@ -161,7 +160,7 @@ class CherryPyWebExt(object):
         try:
             self._config_loader.load("cherrypy", self.parent._config_path)
         except ConfigurationNotFound, e:
-            log.info(e)
+            log.error(e)
     
     def _setup_routes(self, routes):
         self.dispatcher = cherrypy.dispatch.RoutesDispatcher()
