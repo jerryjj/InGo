@@ -1,4 +1,4 @@
-import ingo.application
+import ingo.project
 
 import logging
 log = logging.getLogger('web')
@@ -7,13 +7,13 @@ from ingo import config
 from ingo.ext.web import findExtensions as web_findExtensions, getExtensionModule as web_getExtensionModule
 
 import os
-APP_PATH = os.path.realpath(os.path.dirname(__file__)+'/../')
+PROJ_PATH = os.path.realpath(os.path.dirname(__file__)+'/../')
 
 class NoExtensionsAvailable(Exception): pass
 
-class Application(ingo.application.Application):
+class Project(ingo.project.Project):
     """docstring for Application"""
-    _configurations = [["web", APP_PATH]]
+    _configurations = [["web", PROJ_PATH]]
     routes = {}
     
     def __init__(self):

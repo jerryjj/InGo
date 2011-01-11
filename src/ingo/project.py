@@ -9,11 +9,12 @@ from pkg_resources import resource_filename
 
 from unipath import Path
 
-class Application(object):
-    """docstring for Application"""
+class Project(object):
+    """docstring for Project"""
     _configurations = []
     def __init__(self):
-        super(Application, self).__init__()
+        super(Project, self).__init__()
+        ingo.register_project(self)
         
         self._ingo_root = self.resolvePathForName(__name__)
         self._default_config_path = Path(self._ingo_root)
