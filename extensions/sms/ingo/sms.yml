@@ -1,0 +1,12 @@
+sender:
+    plugin: 
+    
+receiver:
+    plugin: 
+    
+message:
+    storage:
+        plugin: 
+    
+queue:
+    handler: LocalQueue
