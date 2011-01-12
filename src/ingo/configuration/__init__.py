@@ -27,14 +27,19 @@ class InGoConfig(dict):
     def get(self, name, default=None):
         if name.find('.') > -1:
             parts = name.split('.')
+            cnt = len(parts)
             for i, k in enumerate(parts):
                 if i == 0:
-                    v = super(InGoConfig, self).get(k, {})
+                    try:
+                        v = super(InGoConfig, self).get(k, {})
+                    except AttributeError:
+                        raise AttributeError('%s is not set in path (%s)' % (k, name))
                     continue
                 try: v = v.get(k)
                 except AttributeError, e:
-                    if default: return default
-                    else: raise e                
+                    if i == cnt-1:
+                        if default: return default
+                    raise AttributeError('%s is not set in path (%s)' % (parts[i-1], name))
             return v
         return super(InGoConfig, self).get(name, default)
     
