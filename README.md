@@ -33,6 +33,14 @@ different projects I work on.
 * InGo.ext.templating.genshi
   Depends: InGo.ext.templating
   Genshi template engine support
+  
+* InGo.ext.sms
+  SMS support for InGo. Supports Sending and Receiving
+
+### Plugins
+
+* InGo.sms.labyrintti
+  Implements SMS support for Labyrintti Gateway
 
 ## Packages
 
