@@ -83,13 +83,15 @@ class Project(object):
     def _preparePlugins(self):
         """docstring for _preparePlugins"""
         load_all = config.get('plugins.load_all', False)
-        ingo.plugin.initializeLoader(load_all)
+        #ingo.plugin.initializeLoader(load_all)
+        if load_all:
+            ingo.plugin.loader.loadAll()
         
-        if not load_all and not config.get('plugins.enabled'):
+        if not load_all and not config.get('plugins.enabled', None):
             return
         
         for name, activate in config.get('plugins.enabled').iteritems():
-            ingo.plugin.load(name)
+            ingo.plugin.loader.load(name)
             if activate:
-                ingo.plugin.activate(name)
+                ingo.plugin.loader.activate(name)
         

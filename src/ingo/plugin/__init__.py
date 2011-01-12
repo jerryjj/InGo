@@ -1,7 +1,7 @@
 import os
 from pkg_resources import iter_entry_points, resource_string, resource_filename
 
-_loader = None
+loader = None
 
 class PluginNotLoaded(Exception): pass
 class PluginNotActive(Exception): pass
@@ -94,31 +94,25 @@ class Loader(object):
         
         self._plugins[entry_point.name] = instance
         return True
-
-def initializeLoader(load_all=True):
-    global _loader
-    _loader = Loader()
     
-    if load_all:
-        _loader.loadAll()
+    def get(self, name):
+        return self.getByName(name)
 
-def get(name):
-    return _loader.getByName(name)
-    
-def activate(name):    
-    return _loader.activateByName(name)
-    
-def deactivate(name):
-    return _loader.deactivateByName(name)
+    def activate(self, name):    
+        return self.activateByName(name)
 
-def isActive(name):
-    return _loader.isActiveByName(name)
+    def deactivate(self, name):
+        return self.deactivateByName(name)
 
-def isLoaded(name):
-    return _loader.isLoadedByName(name)
-    
-def load(name):
-    return _loader.loadByName(name)
+    def isActive(self, name):
+        return self.isActiveByName(name)
 
-def unload(name):
-    return _loader.unloadByName(name)
+    def isLoaded(self, name):
+        return self.isLoadedByName(name)
+
+    def load(self, name):
+        return self.loadByName(name)
+
+    def unload(self, name):
+        return self.unloadByName(name)
+loader = Loader()
