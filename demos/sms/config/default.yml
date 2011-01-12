@@ -1,0 +1,6 @@
+logging:
+    loggers:
+        sms:
+            level: debug
+            handlers:
+                - console            

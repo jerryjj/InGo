@@ -1,0 +1,13 @@
+sender:
+    plugin: labyrintti
+    config:
+        authentication:
+            username: USERNAME
+            password: PASSWORD
+    
+receiver:
+    plugin: labyrintti
+    
+# message:
+#     storage:
+#         plugin: 'labyrintti'
