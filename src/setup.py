@@ -34,7 +34,8 @@ setup(
         "Tempita>=0.2",
         "PyYAML",
         "Unipath",
-        "python-gettext"
+        "python-gettext",
+        "zope.interface"
     ],
     setup_requires=[],
     namespace_packages = ['ingo', 'ingo.ext'],

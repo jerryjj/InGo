@@ -14,7 +14,8 @@ setup(
     url='',
     install_requires=[
         "inGo",
-        "inGo.ext.templating"
+        "inGo.ext.templating",
+        "Genshi"
     ],
     setup_requires=["PasteScript>=1.6.3"],
     packages=find_packages(exclude=['ez_setup']),
