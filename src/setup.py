@@ -10,7 +10,7 @@ setup(
     name='inGo',
     version='0.1',
     description='InGo Framework',
-    long_description=''
+    long_description='',
     classifiers=[
         #"Development Status :: 5 - Production/Stable",
         #"Development Status :: 4 - Beta",
@@ -25,7 +25,7 @@ setup(
         "Topic :: System :: Networking",
         "Topic :: Software Development :: Libraries :: Application Frameworks",
     ],
-    license="BSD"
+    license="BSD",
     author='Jerry Jalava',
     author_email='jerry.jalava@infigo.fi',
     url='http://ingo.infigo.fi',
