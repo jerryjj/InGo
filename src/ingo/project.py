@@ -83,7 +83,7 @@ class Project(object):
     def _preparePlugins(self):
         """docstring for _preparePlugins"""
         load_all = config.get('plugins.load_all', False)
-        #ingo.plugin.initializeLoader(load_all)
+        
         if load_all:
             ingo.plugin.loader.loadAll()
         
