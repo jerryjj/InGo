@@ -12,12 +12,12 @@ PROJ_PATH = os.path.realpath(os.path.dirname(__file__)+'/../')
 class NoExtensionsAvailable(Exception): pass
 
 class Project(ingo.project.Project):
-    """docstring for Application"""
+    """docstring for Project"""
     _configurations = [["web", PROJ_PATH]]
     routes = {}
     
     def __init__(self):
-        super(Application, self).__init__()
+        super(Project, self).__init__()
         self._available_extensions = web_findExtensions()
         if len(self._available_extensions) == 0:
             raise NoExtensionsAvailable()
