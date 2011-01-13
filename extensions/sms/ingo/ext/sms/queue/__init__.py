@@ -1,10 +1,16 @@
-from .storage import *
+from ingo import config
+from .storage import createStorage
 
 class MessageQueue(object):
     """docstring for MessageQueue"""
     def __init__(self):
         super(MessageQueue, self).__init__()
+        
+        self._storage = createStorage(config.get('sms.queue.storage.handler', None))
     
+    def load(self):
+        pass
+        
     def items(self):
         return []
     
@@ -28,17 +34,23 @@ class LocalQueue(MessageQueue):
         super(LocalQueue, self).__init__()
         self._items = []
         
+    def load(self):
+        self._items = self._storage.load()
+
     def add(self, item):
         self._items.append(item)
+        self._storage.store(self._items)
     
     def push(self, items):
         self._items += list(items)
+        self._storage.store(self._items)        
 
     def items(self):
         return self._items
 
     def clear(self):
         self._items = []
+        self._storage.clear()
 
 def createQueue(name):
     if name.count("."):
