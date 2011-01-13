@@ -15,8 +15,8 @@ class LabyrinttiSMSGateway(Plugin):
     def initialize(self):
         log.debug("LabyrinttiSMSGateway :: initialize")
         print self.config
-        self.sender = LabyrinttiSender(config=config.get('sms.sender.config', {}))
-        self.receiver = LabyrinttiReceiver(config=config.get('sms.receiver.config', {}))
+        self.sender = LabyrinttiSender(config=config.get('sms.sender.plugin_config', {}))
+        self.receiver = LabyrinttiReceiver(config=config.get('sms.receiver.plugin_config', {}))
 
     def load(self):
         log.debug("LabyrinttiSMSGateway :: load")
