@@ -52,5 +52,6 @@ setup(
     entry_points="""
     [paste.paster_create_template]
     ingo_extension = ingo.paster.templates:ExtensionTemplate
+    ingo_plugin = ingo.paster.templates:PluginTemplate
     """,
 )
