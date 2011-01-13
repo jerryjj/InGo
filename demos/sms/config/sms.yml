@@ -1,6 +1,6 @@
 sender:
     plugin: labyrintti
-    config:
+    plugin_config:
         authentication:
             username: USERNAME
             password: PASSWORD
