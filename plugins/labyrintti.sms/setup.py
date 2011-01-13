@@ -6,7 +6,7 @@ except ImportError:
     from setuptools import setup, find_packages
 
 setup(
-    name='ingo.sms.labyrintti',
+    name='InGo.sms.labyrintti',
     version='0.1',
     description='Labyrintti SMS Gateway plugin',
     author='Jerry Jalava',
