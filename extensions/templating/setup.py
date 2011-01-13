@@ -12,7 +12,7 @@ setup(
     author='',
     author_email='',
     url='',
-    namespace_packages = ['ingo', 'ingo.ext', 'ingo.ext.templating', 'ingo.ext.templating.engines'],
+    namespace_packages = ['ingo', 'ingo.ext', 'ingo.ext.templating'],
     install_requires=[
         "inGo",
     ],
