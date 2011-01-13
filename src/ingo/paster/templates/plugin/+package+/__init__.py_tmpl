@@ -1,0 +1,31 @@
+from ingo.plugin.base import Plugin
+
+import logging
+log = logging.getLogger('ingo')
+
+class {{project}}(Plugin):
+    __name__ = __name__
+    
+    def initialize(self):
+        log.debug("{{project}} :: initialize")
+    
+    def load(self):
+        log.debug("{{project}} :: load")
+
+    def unload(self):
+        log.debug("{{project}} :: unload")
+
+    def activate(self):
+        log.debug("{{project}} :: activate")
+        super({{project}}, self).activate()        
+
+    def deactivate(self):
+        log.debug("{{project}} :: deactivate")
+        super({{project}}, self).deactivate()        
+
+    def isActive(self):        
+        log.debug("{{project}} :: isActive %s" % self._activated)
+        return super({{project}}, self).isActive()
+
+def make(conf=None):
+    return {{project}}(config=conf)
