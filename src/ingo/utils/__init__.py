@@ -117,3 +117,21 @@ def dottedKeyFromDict(name, dic, default=None):
                 raise AttributeError('%s is not set in path (%s)' % (parts[i-1], name))
         return v
     return dic.get(name, default)
+
+def updateDictByDottedKey(name, value, dic):
+    if name.find('.') > -1:
+        parts = name.split('.')
+        cnt = len(parts)
+        for i, k in enumerate(parts):
+            if i == cnt-1:
+                break
+            if i == 0:
+                try:
+                    v = dic.get(k, {})
+                except AttributeError:
+                    raise AttributeError('%s is not set in path (%s)' % (k, name))
+                continue
+            try: v = v.get(k)
+            except AttributeError, e:
+                raise AttributeError('%s is not set in path (%s)' % (parts[i-1], name))
+        v.__dict__[k] = value
