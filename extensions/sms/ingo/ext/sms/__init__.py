@@ -3,6 +3,7 @@ from unipath import Path
 import ingo
 from ingo import config
 from ingo.configuration import Configuration, ConfigurationNotFound
+from ingo.utils import dottedKeyFromDict, updateDictByDottedKey
 
 import ingo.ext.sms.plugins
 
@@ -67,7 +68,7 @@ class MessageSender(_SMSBase):
         return status
     
     def _prepareQueue(self):
-        self.queue = createQueue(config.get('sms.queue.handler', 'LocalQueue'))        
+        self.queue = createQueue(config.get('sms.queue.handler', 'LocalQueue'))
         
     def _preparePlugin(self):
         if not self.sender_plugin_name:
@@ -103,12 +104,6 @@ class Message(object):
         self.storage_plugin_name = config.get('sms.message.storage.plugin', None)
         self._storage_plugin = None
         self._preparePlugins()
-
-    def _preparePlugins(self):
-        if self.storage_plugin_name:
-            ingo.ext.sms.plugins.loader.load(self.storage_plugin_name)
-            ingo.ext.sms.plugins.loader.activate(self.storage_plugin_name)
-            self._storage_plugin = ingo.ext.sms.plugins.loader.get(self.storage_plugin_name)
     
     @property
     def properties(self):
@@ -122,16 +117,36 @@ class Message(object):
                 raise AttributeError("Message is missing required property '%s'" % key)
     
     def get(self, key):
+        if key.find('.') > 0: return dottedKeyFromDict(key, self._properties)
         return self._properties.get(key)
     
     def set(self, key, value):
-        self._properties[key] = value
+        if key.find('.') > 0:
+            v = updateDictByDottedKey(key, value, self._properties)
+        else:
+            self._properties[key] = value
     
+    def _preparePlugins(self):
+        if self.storage_plugin_name:
+            ingo.ext.sms.plugins.loader.load(self.storage_plugin_name)
+            ingo.ext.sms.plugins.loader.activate(self.storage_plugin_name)
+            self._storage_plugin = ingo.ext.sms.plugins.loader.get(self.storage_plugin_name)
+
     def _bindProperties(self, **kwargs):
         for key, value in kwargs.iteritems():
             if key in ['sender', 'receiver'] and not isinstance(value, Contact):
                 value = Contact(None, value)
             self._properties[key] = value
+
+    def __getstate__(self):
+        odict = self.__dict__.copy()
+        del odict['_storage_plugin']
+        return odict
+
+    def __setstate__(self, dict):
+        self.__dict__.update(dict)
+        self._storage_plugin = None
+        self._preparePlugins()
     
     def __repr__(self):
         rep = "Message("
