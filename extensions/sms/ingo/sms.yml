@@ -10,3 +10,9 @@ message:
     
 queue:
     handler: LocalQueue
+    storage:
+        handler: PickleStorage
+        handler_config:
+            path: ./queue
+        plugin: 
+        plugin_config: 
