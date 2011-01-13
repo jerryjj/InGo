@@ -1,4 +1,5 @@
 from ingo.plugin import Loader
+from ingo.utils import dottedKeyFromDict 
 
 loader = None
 
@@ -11,6 +12,15 @@ loader = SMSPluginLoader()
 
 class SenderPlugin(object):
     """docstring for SenderPlugin"""
+    default = {}
+    
+    message_properties = [
+    ]
+    message_keys = {
+    }
+    message_map = {
+    }
+
     def __init__(self, config):
         super(SenderPlugin, self).__init__()
         self.config = self.defaults
@@ -34,4 +44,23 @@ class SenderPlugin(object):
             uri += conf.get('path')
         
         return uri
+        
+    def _prepareMessage(self, props):        
+        prepared = {}
+                
+        for mk, rk in self.message_map.iteritems():            
+            if mk.find('.') > 0: v = dottedKeyFromDict(mk, props)
+            else: v = props[mk]
+            if v != None:
+                prepared[rk] = v
+
+        for k, v in props.iteritems():            
+            if self.message_keys.has_key(k):
+                prepared[k] = v
+
+        for k, default in self.message_keys.iteritems():
+            if not prepared.has_key(k) and default != None:
+                prepared[k] = default
+
+        return prepared
         
