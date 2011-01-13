@@ -23,6 +23,8 @@ class LabyrinttiSender(SenderPlugin):
         }
     }
     
+    message_properties = [
+    ]
     message_keys = {
         'user': None,
         'source': None,
@@ -32,8 +34,6 @@ class LabyrinttiSender(SenderPlugin):
         'binary': None,
         'class': 'normal'
     }
-    message_properties = [
-    ]
     message_map = {
         'sender.name': 'source-name',
         'sender.number': 'source',
@@ -67,7 +67,7 @@ class LabyrinttiSender(SenderPlugin):
         h = httplib2.Http()
         
         h.add_credentials(self.config['authentication']['username'], self.config['authentication']['password'])
-        h.follow_all_redirects = True
+        #h.follow_all_redirects = True
         headers = {'content-type':'application/x-www-form-urlencoded'}
         
         resp, content = h.request(self.generateUri(), method="POST", body=body, headers=headers)
@@ -78,21 +78,7 @@ class LabyrinttiSender(SenderPlugin):
         return True
     
     def _prepareMessage(self, props):        
-        prepared = {}
-        
-        for mk, rk in self.message_map.iteritems():            
-            if mk.find('.') > 0: v = dottedKeyFromDict(mk, props)
-            else: v = props[mk]
-            if v != None:
-                prepared[rk] = v
-        
-        for k, v in props.iteritems():            
-            if self.message_keys.has_key(k):
-                prepared[k] = v
-        
-        for k, default in self.message_keys.iteritems():
-            if not prepared.has_key(k) and default != None:
-                prepared[k] = default
+        prepared = SenderPlugin._prepareMessage(self, props)
         
         if prepared.has_key('as_binary'):
             prepared['binary'] = prepared['text']
