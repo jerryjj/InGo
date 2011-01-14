@@ -155,10 +155,10 @@ class CherryPyWebExt(object):
     
     def _loadConfiguration(self):
         self._config_loader = Configuration(implementation="yml")
-        self._config_loader.load("cherrypy", getDefaultConfigPath()) #self.parent.resolvePathForName(__name__)
-
+        self._config_loader.loadExtension("cherrypy", getDefaultConfigPath())
+        
         try:
-            self._config_loader.load("cherrypy", self.parent._config_path)
+            self._config_loader.load("cherrypy", config.get('project.paths.config'))
         except ConfigurationNotFound, e:
             log.error(e)
     

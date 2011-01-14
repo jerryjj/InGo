@@ -17,7 +17,7 @@ class Project(object):
         ingo.register_project(self)
         
         self._ingo_root = self.resolvePathForName(__name__)
-        self._default_config_path = Path(self._ingo_root)
+        self._ingo_config_path = Path(self._ingo_root)
         self.base_path = Path(sys.path[0])
         self._config_path = self.base_path.child('config')
         
@@ -46,15 +46,15 @@ class Project(object):
         return resource_filename(name, path)
     
     def _loadInitialConfiguration(self):
-        self._config_loader.load("default", self._default_config_path)
+        self._config_loader.load("default", self._ingo_config_path, local=False)
         
         for name in self._configurations:
             conf_name = name
-            conf_path = self._default_config_path
+            conf_path = self._ingo_config_path
             if type(name) is list:
                 conf_name = name[0]
                 conf_path = name[1]
-            self._config_loader.load(conf_name, conf_path)
+            self._config_loader.load(conf_name, conf_path, local=False)
     
     def _loadInitialUserConfiguration(self):
         if not self._config_path:
