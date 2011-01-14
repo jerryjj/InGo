@@ -19,11 +19,6 @@ class InGoConfig(dict):
         }
     }
     
-    def init_project(self, global_conf, project_conf, package=None):
-        conf = global_conf.copy()
-        conf.update(project_conf)
-        conf.update(dict(project_conf=project_conf, global_conf=global_conf))
-    
     def get(self, name, default=None):
         if name.find('.') > -1:
             parts = name.split('.')
@@ -45,9 +40,6 @@ class InGoConfig(dict):
     
 ingo_config = InGoConfig()
 
-# Push an empty config so all accesses to config at import time have something
-# to look at and modify. This config will be merged with the app's when it's
-# built in the paste.app_factory entry point.
 ingo_config.update(copy.deepcopy(InGoConfig.defaults))
 config.push_process_config(ingo_config)
 
@@ -67,33 +59,51 @@ class Configuration(object):
         self._config_parts = dict()
         
         self._prepareImplementation()
+    
+    def loadExtension(self, name, path):
+        try:
+            self.load("default", path, local=False)
+        except ConfigurationNotFound:
+            pass
         
-    def load(self, name, path=None, update_global=False):        
+        self.load(name, path, local=False)
+        
+    def load(self, name, path=None, update_global=False, local=True):        
         source = self._impl.prepareSource(name, path)
         
         if not self._impl.exists(source):
             raise ConfigurationNotFound("No config source %s found" % source)
         
+        content = self._impl.load(source)
+        
         self._config_parts[name] = {
             'path': path,
-            'source': source,
-            'content': self._impl.load(source)
+            'source': source
         }
         
+        is_local = False
+        if name.count(".local"):
+            name = name.split(".local")[0]
+            is_local = True
+        
         if name == 'default':
-            conf = self.merge(config.copy(), self._config_parts[name]['content'])
+            conf = self.merge(config.copy(), content)
             config.update(conf)
         else:            
             if not config.has_key(name):
                 config[name] = {}
-            conf = self.merge(config[name].copy(), self._config_parts[name]['content'])
+            conf = self.merge(config[name].copy(), content)
             config[name].update(conf)
             
             if update_global:
-                conf = self.merge(config.copy(), self._config_parts[name]['content'])
+                conf = self.merge(config.copy(), content)
                 config.update(conf)
         
-        return self._config_parts[name]['content']
+        if local and not is_local:
+            local_content = self.load(name+".local", path, update_global, local)
+            content = self.merge(local_content.copy(), content)
+        
+        return content
     
     def dump(self, target=None):
         pass
