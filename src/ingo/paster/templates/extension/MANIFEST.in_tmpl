@@ -1,1 +1,2 @@
-include ingo/{{package}}.yml_tmpl
+include ingo/default.yml
+include ingo/{{package}}.yml
